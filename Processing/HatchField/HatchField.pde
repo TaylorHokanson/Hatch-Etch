@@ -1,5 +1,6 @@
 // loads a SVG
 // makes a field of cross hatching
+// hello
 
 PShape bot;
  
