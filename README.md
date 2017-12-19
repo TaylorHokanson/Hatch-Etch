@@ -1,3 +1,5 @@
 # Hatch-Etch
 
-## this is an edit
+### Links
+
+1. [Voronoi "pixelization"(http://neoformix.com/2009/VoronoiAndDelaunayImages.html)
