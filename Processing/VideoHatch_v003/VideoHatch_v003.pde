@@ -1,3 +1,11 @@
+// press s to save a frame
+//press p to save a pdf
+
+/* video hatching sketch
+JSL x THO
+
+*/
+
 import processing.video.*;
 
 import java.util.Calendar;
@@ -10,7 +18,7 @@ PImage img;
 int cellsize = 5; // Dimensions of each cell in the grid
 int cols, rows;   // Number of columns and rows in our system
 
-PShape hatch1, hatch2;
+PShape hatch1, hatch2; //declare the hatch svgs
 
 
 float theta=0.0;
@@ -38,6 +46,8 @@ void setup()
   }
 
   shapeMode(CENTER);
+  
+  //load hatch svgs
   hatch1 = loadShape("pattern1.svg");
   hatch2 = loadShape("pattern.svg");
 }
@@ -48,16 +58,16 @@ void draw()
     if (record) {
     beginRecord(PDF, timestamp()+".pdf");
   }
+  
   background(255);
   strokeWeight(1);
   hatch1.disableStyle(); //turn off formatting to allow processing to style the shape
-  hatch2.disableStyle();
+  hatch2.disableStyle(); //turn off formatting to allow processing to style the shape
   if (cam.available() == true) {   
     img.copy(cam, 0, 0, cam.width, cam.height, 0, 0, cam.width, cam.height);
     img.updatePixels();
     cam.read();
   }
-
 
   loadPixels();
   cam.loadPixels();
@@ -73,7 +83,7 @@ void draw()
       float b = brightness(img.pixels[loc]); //grab brightness
 
       // Calculate a z position as a function of mouseX and pixel brightness
-      float z = (mouseX/(float)width) * brightness(img.pixels[loc]) - 100.0;
+      float z = (mouseX/(float)width) * brightness(img.pixels[loc]) - 100.0; //not really used at this point
       //float z = random(1, 100);
 
       // Translate to the location
@@ -91,7 +101,7 @@ void draw()
       //design by brightness
       if (b<200) {
        
-        rotate(angle);
+        rotate(angle*sin(theta));//use sine values to incrementally rotate the shape
         shape(hatch1, 0, 0, cellsize, cellsize);
        
       } 
@@ -100,7 +110,7 @@ void draw()
 
       if (b<180) {
      
-        rotate(angle);
+               rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
         shape(hatch1, 0, 0, cellsize*2, cellsize*2);
      
       } 
@@ -108,26 +118,26 @@ void draw()
 
       if (b<120) {
 
-        rotate(angle);
+       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
         shape(hatch1, 0, 0, cellsize*2, cellsize*2);
       
       } 
  
       if (b<90) {
       
-        rotate(angle);
+       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
         shape(hatch2, 0, 0, cellsize*2, cellsize*2);
      
       } 
 
       if (b<30) {
       
-        rotate(angle);
+       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
         shape(hatch2, 0, 0, cellsize*2, cellsize*2);
     
       }
 
-      theta+=.00001;
+      theta+=.001; //increment theta
       popMatrix();
     }
   }
