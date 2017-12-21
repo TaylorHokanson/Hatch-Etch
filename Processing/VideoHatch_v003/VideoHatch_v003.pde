@@ -83,7 +83,11 @@ void draw()
 
 
       float r = random(10);
+      
+      // ********************** try this as well, gets purty funky! ************ /
+      // float angle = r * PI/8;
       float angle = PI/8;
+      
       rectMode(CENTER);
 
 
