@@ -2,9 +2,11 @@
 //press p to save a pdf
 
 /* video hatching sketch
-JSL x THO
-
-*/
+ JSL x THO
+ 
+ 
+ horizontal lines
+ */
 
 import processing.video.*;
 
@@ -18,7 +20,7 @@ PImage img;
 int cellsize = 5; // Dimensions of each cell in the grid
 int cols, rows;   // Number of columns and rows in our system
 
-PShape hatch1, hatch2; //declare the hatch svgs
+PShape hatch1, hatch2, hatch3, hatch4, hatch5; //declare the hatch svgs
 
 
 float theta=0.0;
@@ -45,24 +47,34 @@ void setup()
     cam.start();
   }
 
-  shapeMode(CENTER);
-  
+
+
   //load hatch svgs
   hatch1 = loadShape("pattern1.svg");
-  hatch2 = loadShape("pattern.svg");
+  hatch2 = loadShape("pattern2.svg");
+  hatch3 = loadShape("pattern3.svg");
+  hatch4 = loadShape("pattern4.svg");
+  hatch5 = loadShape("pattern5.svg");
 }
 
 void draw()
 {
   //pdf record
-    if (record) {
+  if (record) {
     beginRecord(PDF, timestamp()+".pdf");
   }
-  
+  shapeMode(CENTER);
   background(255);
-  strokeWeight(1);
+
   hatch1.disableStyle(); //turn off formatting to allow processing to style the shape
   hatch2.disableStyle(); //turn off formatting to allow processing to style the shape
+  hatch3.disableStyle(); //turn off formatting to allow processing to style the shape
+  hatch4.disableStyle(); //turn off formatting to allow processing to style the shape
+  hatch5.disableStyle(); //turn off formatting to allow processing to style the shape
+  strokeWeight(.5);
+  noFill();
+  stroke (0);
+
   if (cam.available() == true) {   
     img.copy(cam, 0, 0, cam.width, cam.height, 0, 0, cam.width, cam.height);
     img.updatePixels();
@@ -89,63 +101,58 @@ void draw()
       // Translate to the location
       pushMatrix();
       translate(x*2, y*2);
-      fill(c);
+      // fill(c);
 
 
       float r = random(10);
-      
+
       // ********************** try this as well, gets purty funky! ************ /
       // float angle = r * PI/8;
       float angle = PI/8;
-      
+
       rectMode(CENTER);
 
 
 
       //design by brightness
-      if (b<200) {
-       
-        rotate(angle*sin(theta));//use sine values to incrementally rotate the shape
-        shape(hatch1, 0, 0, cellsize, cellsize);
-       
-      } 
-   
 
-
-      if (b<180) {
-     
-               rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
-        shape(hatch1, 0, 0, cellsize*2, cellsize*2);
-     
-      } 
-
-
-      if (b<120) {
-
-       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
-        shape(hatch1, 0, 0, cellsize*2, cellsize*2);
-      
-      } 
- 
-      if (b<90) {
-      
-       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
-        shape(hatch2, 0, 0, cellsize*2, cellsize*2);
-     
-      } 
 
       if (b<30) {
-      
-       rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
+
+        //rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
+        shape(hatch1, 0, 0, cellsize*2, cellsize*2);
+      } else if (b<80) {
+
+        //rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
         shape(hatch2, 0, 0, cellsize*2, cellsize*2);
-    
+      } else if (b<110) {
+
+        //rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
+        shape(hatch3, 0, 0, cellsize*2, cellsize*2);
+      } else if (b<150) {
+
+        //rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
+        shape(hatch4, 0, 0, cellsize*2, cellsize*2);
+      } else if (b<190) {
+
+        //rotate(angle*sin(theta)); //use sine values to incrementally rotate the shape
+        shape(hatch5, 0, cellsize, cellsize*2, cellsize*2);
       }
 
-      theta+=.00001; //increment theta
+
+
+
+
+
+
+
+
+
+      theta+=.001; //increment theta
       popMatrix();
     }
   }
-    if (record) {
+  if (record) {
     endRecord();
     record = false;
   }

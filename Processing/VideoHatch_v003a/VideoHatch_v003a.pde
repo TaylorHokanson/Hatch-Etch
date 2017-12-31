@@ -141,7 +141,7 @@ void draw()
     
       }
 
-      theta+=.00001; //increment theta
+      theta+=.001; //increment theta
       popMatrix();
     }
   }
