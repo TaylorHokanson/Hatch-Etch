@@ -12,8 +12,8 @@ PImage img;
 
 
 //load the image here, remember to change size in setup to match
-String imgFileName = "shapes";
-String fileType = "png";
+String imgFileName = "ansel";
+String fileType = "jpg";
 
 import java.util.Calendar;
 import processing.pdf.*;
@@ -69,8 +69,8 @@ void draw()
   for ( int i = 0; i < cols; i++) {
     // Begin loop for rows
     for ( int j = 0; j < rows; j++) {
-      int x = i*cellsize/2 + cellsize/2; // x position
-      int y = j*cellsize/2 + cellsize/2; // y position
+      int x = i*cellsize + cellsize/2; // x position
+      int y = j*cellsize + cellsize/2; // y position
       int loc = x + y*width;           // Pixel array location
       color c = img.pixels[loc];       // Grab the color
       float b = brightness(img.pixels[loc]); //grab brightness
